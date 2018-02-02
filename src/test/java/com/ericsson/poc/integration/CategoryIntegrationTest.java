@@ -2,6 +2,7 @@ package com.ericsson.poc.integration;
 
 import com.ericsson.poc.model.Category;
 import com.ericsson.poc.repository.CategoryRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -26,6 +28,13 @@ public class CategoryIntegrationTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Before
+    public void populateTheDatabase(){
+        Category category1  = new Category("Games");
+        Category category2 = new Category("Sports");
+        categoryRepository.save(Arrays.asList(category1, category2));
+    }
 
     @Test
     public void testIfTheCategoryTableHasAListWithTwoCategories(){
